@@ -1,0 +1,48 @@
+{
+  "name": "drones",
+  "version": "1.0.0",
+  "description": "Dones",
+  "main": "index.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest --collect-coverage --detectOpenHandles --forceExit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "cross-env": "5.2.0",
+    "eslint": "5.12.1",
+    "eslint-config-prettier": "4.0.0",
+    "eslint-plugin-prettier": "3.0.1",
+    "husky": "4.2.1",
+    "lint-staged": "10.0.7",
+    "nodemon": "1.19.4",
+    "prettier": "1.16.1",
+    "chai": "4.2.0",
+    "jest": "24.9.0",
+    "sinon": "7.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jluismorav/drones.git"
+  },
+  "keywords": [
+    "drones"
+  ],
+  "author": "José Luis Mora Villadiego",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jluismorav/drones/issues"
+  },
+  "homepage": "https://github.com/jluismorav/drones#readme",
+  "engines": {
+    "node": ">=12.19"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js}": "prettier --write"
+  }
+}
