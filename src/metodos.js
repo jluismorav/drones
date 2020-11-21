@@ -34,6 +34,7 @@ const girar = async ({ geo, move }) => {
 };
 
 const repartir = async (dron) => {
+  let ultimaPosicion = [];
   for (const orden of dron.ordenes) {
     for (const intruccion of orden) {
       if (intruccion == 'A') {
@@ -55,7 +56,9 @@ const repartir = async (dron) => {
         dron.geo = await girar({ geo: dron.geo, move: intruccion });
       }
     }
+    ultimaPosicion.push({ x: dron.x, y: dron.y, orientacion: dron.geo });
   }
+  return ultimaPosicion;
 };
 
 module.exports = { leerInstrucciones, girar, repartir };
