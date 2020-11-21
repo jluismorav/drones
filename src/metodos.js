@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const readline = require('readline');
 
 const leerInstrucciones = async (file) => {
@@ -34,7 +35,7 @@ const girar = async ({ geo, move }) => {
 };
 
 const repartir = async (dron) => {
-  let ultimaPosicion = [];
+  let entregas = [];
   for (const orden of dron.ordenes) {
     for (const intruccion of orden) {
       if (intruccion == 'A') {
@@ -56,9 +57,31 @@ const repartir = async (dron) => {
         dron.geo = await girar({ geo: dron.geo, move: intruccion });
       }
     }
-    ultimaPosicion.push({ x: dron.x, y: dron.y, orientacion: dron.geo });
+    entregas.push({ x: dron.x, y: dron.y, orientacion: dron.geo });
   }
-  return ultimaPosicion;
+  return { dron, entregas };
 };
 
-module.exports = { leerInstrucciones, girar, repartir };
+const generarReporteEntregas = async ({ directorio, dron, entregas }) => {
+  const nombreArchivoReporte = `out${dron.nombreArchivo
+    .match(/(\d+)/g)
+    .join()}.txt`;
+  const rutaArchivoReporte = path.join(directorio, nombreArchivoReporte);
+
+  if (fs.existsSync(rutaArchivoReporte)) fs.unlinkSync(rutaArchivoReporte);
+
+  fs.appendFileSync(rutaArchivoReporte, '== Reporte de entregas == \n');
+
+  for (const entrega of entregas) {
+    fs.appendFileSync(
+      rutaArchivoReporte,
+      `(${entrega.x}, ${entrega.y})\t${entrega.orientacion} \n`
+    );
+  }
+  return {
+    contenidoReporte: fs.readFileSync(rutaArchivoReporte, 'utf8'),
+    nombreArchivoReporte,
+  };
+};
+
+module.exports = { leerInstrucciones, girar, repartir, generarReporteEntregas };
