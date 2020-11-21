@@ -4,7 +4,7 @@
   "description": "Dones",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --collect-coverage --detectOpenHandles --forceExit"
+    "test": "cross-env NODE_ENV=test jest --runInBand --collect-coverage --detectOpenHandles --forceExit"
   },
   "dependencies": {},
   "devDependencies": {

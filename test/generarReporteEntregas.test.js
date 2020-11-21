@@ -5,7 +5,7 @@ const { generarReporteEntregas } = require('../src/metodos');
 
 const directorio = './test/recursos/';
 
-describe('generarReporteEntregasƒ', () => {
+describe('generarReporteEntregas', () => {
   it(`Un dron que toma las intrucciones de un archivo con nombre in01.txt, 
   el archivo debe tener el nombre out01.txt el contenido:
   == Reporte de entregas == 
